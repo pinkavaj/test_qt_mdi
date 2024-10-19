@@ -1,7 +1,3 @@
-#include <fstream>
-#include <iostream>
-#include <strstream>
-
 #include <QApplication>
 #include <QMainWindow>
 #include <QMdiArea>
@@ -15,7 +11,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow()
     {
-        mdiArea = new QMdiArea();
+        QMdiArea *mdiArea = new QMdiArea(this);
         setCentralWidget(mdiArea);
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(true);
@@ -23,16 +19,15 @@ public:
         mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, true);
         mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
 
-        QMenu *fileMenu = menuBar()->addMenu("Click here");
-        QAction *newAction = fileMenu->addAction("New Window");
-        connect(newAction, &QAction::triggered, this, &MainWindow::createNewWindow);
-
         resize(800, 600);
-        setWindowTitle("MDI Application" QT_VERSION_STR);
+        setWindowTitle("MDI Application " QT_VERSION_STR);
+
+        createNewWindow(mdiArea);
+        createNewWindow(mdiArea);
     }
 
 private slots:
-    void createNewWindow()
+    void createNewWindow(QMdiArea *mdiArea)
     {
         QMdiSubWindow *subWindow = new QMdiSubWindow;
         subWindow->setAttribute(Qt::WA_DeleteOnClose);
@@ -40,9 +35,6 @@ private slots:
         mdiArea->addSubWindow(subWindow);
         subWindow->show();
     }
-
-private:
-    QMdiArea *mdiArea;
 };
 
 int main(int argc, char *argv[])
