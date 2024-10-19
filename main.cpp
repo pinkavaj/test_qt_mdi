@@ -24,16 +24,6 @@ public:
         mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
         mdiArea->setTabsMovable(true);
 
-        /*
-        connect(d->windowMapper, &QSignalMapper::mappedObject,
-            this, [=](QObject* object) {
-        onSetActiveSubWindow(qobject_cast<QWidget*>(object));
-        });
-
-            connect(d->mdiArea, &QMdiArea::subWindowActivated,
-            this, &MainWindow::onWindowActivated);
-        */
-
         QMenu *fileMenu = menuBar()->addMenu("Click here");
         QAction *newAction = fileMenu->addAction("New Window");
         connect(newAction, &QAction::triggered, this, &MainWindow::createNewWindow);
