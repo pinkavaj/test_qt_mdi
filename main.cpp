@@ -10,17 +10,6 @@
 #include <QMenuBar>
 #include <QAction>
 
-class CustomMdiSubWindow : public QMdiSubWindow
-{
-protected:
-    void closeEvent(QCloseEvent *closeEvent) override
-    {
-        // Actually delete the subwindow when closed
-        closeEvent->accept();
-        deleteLater();
-    }
-};
-
 class MainWindow : public QMainWindow
 {
 public:
@@ -56,7 +45,7 @@ public:
 private slots:
     void createNewWindow()
     {
-        CustomMdiSubWindow *subWindow = new CustomMdiSubWindow;
+        QMdiSubWindow *subWindow = new QMdiSubWindow;
         subWindow->setAttribute(Qt::WA_DeleteOnClose);
         subWindow->setWindowTitle("NEW");
         mdiArea->addSubWindow(subWindow);
