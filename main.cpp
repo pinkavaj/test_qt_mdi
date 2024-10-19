@@ -50,12 +50,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow mainWindow;
     mainWindow.show();
-    std::ifstream file("style.css", std::ios::binary);
-    if (!file.is_open()) {
-        return 1;
-    }
-    std::strstream buffer;
-    buffer << file.rdbuf();
-    app.setStyleSheet(QString::fromStdString(buffer.str()));
+
+    app.setStyleSheet(QString("QTabBar::tab:bottom:selected { border-bottom: 1px solid; }"));
     return app.exec();
 }
