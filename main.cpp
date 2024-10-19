@@ -9,7 +9,6 @@
 #include <QCloseEvent>
 #include <QMenuBar>
 #include <QAction>
-#include <QStatusBar>
 
 class CustomMdiSubWindow : public QMdiSubWindow
 {
@@ -35,10 +34,6 @@ public:
         mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, true);
         mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
         mdiArea->setTabsMovable(true);
-
-        QStatusBar *statusBar = new QStatusBar(this);
-        setStatusBar(statusBar);
-        statusBar->showMessage("STATUS");
 
         /*
         connect(d->windowMapper, &QSignalMapper::mappedObject,
