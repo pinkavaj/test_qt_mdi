@@ -22,7 +22,6 @@ public:
         mdiArea->setTabPosition(QTabWidget::South);
         mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, true);
         mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
-        mdiArea->setTabsMovable(true);
 
         QMenu *fileMenu = menuBar()->addMenu("Click here");
         QAction *newAction = fileMenu->addAction("New Window");
