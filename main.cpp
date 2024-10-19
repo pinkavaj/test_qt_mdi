@@ -1,3 +1,7 @@
+#include <fstream>
+#include <iostream>
+#include <strstream>
+
 #include <QApplication>
 #include <QMainWindow>
 #include <QMdiArea>
@@ -5,6 +9,7 @@
 #include <QCloseEvent>
 #include <QMenuBar>
 #include <QAction>
+#include <QStatusBar>
 
 class CustomMdiSubWindow : public QMdiSubWindow
 {
@@ -27,9 +32,13 @@ public:
         mdiArea->setViewMode(QMdiArea::TabbedView);
         mdiArea->setTabsClosable(true);
         mdiArea->setTabPosition(QTabWidget::South);
-        mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, false);
+        mdiArea->setOption(QMdiArea::DontMaximizeSubWindowOnActivation, true);
         mdiArea->setActivationOrder(QMdiArea::ActivationHistoryOrder);
         mdiArea->setTabsMovable(true);
+
+        QStatusBar *statusBar = new QStatusBar(this);
+        setStatusBar(statusBar);
+        statusBar->showMessage("STATUS");
 
         /*
         connect(d->windowMapper, &QSignalMapper::mappedObject,
@@ -46,7 +55,7 @@ public:
         connect(newAction, &QAction::triggered, this, &MainWindow::createNewWindow);
 
         resize(800, 600);
-        setWindowTitle("MDI Application");
+        setWindowTitle("MDI Application" QT_VERSION_STR);
     }
 
 private slots:
@@ -68,6 +77,12 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow mainWindow;
     mainWindow.show();
+    std::ifstream file("style.css", std::ios::binary);
+    if (!file.is_open()) {
+        return 1;
+    }
+    std::strstream buffer;
+    buffer << file.rdbuf();
+    app.setStyleSheet(QString::fromStdString(buffer.str()));
     return app.exec();
 }
-
