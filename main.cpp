@@ -50,7 +50,7 @@ public:
             this, &MainWindow::onWindowActivated);
         */
 
-        QMenu *fileMenu = menuBar()->addMenu("File");
+        QMenu *fileMenu = menuBar()->addMenu("Click here");
         QAction *newAction = fileMenu->addAction("New Window");
         connect(newAction, &QAction::triggered, this, &MainWindow::createNewWindow);
 
